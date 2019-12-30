@@ -8,7 +8,7 @@
 
 #define MAX_FILESIZE    4096    // accepted maximum file size
 #define MAX_STRLEN      20      // all strings' maximum length in this project
-#define POS_SIZE        30      // number of POS      
+#define POS_SIZE        30      // number of POS
 #define BNF_SIZE        22      // number of BNF
 #define PARSER_SIZE     64      // parser buffer maximum size
 #define MAX_TREEDEPTH   64      // maximum syntactic tree depth
@@ -47,15 +47,15 @@ typedef enum
     OBJ,            // string
     NUM,            // number
     // DEV POS
-    OBJS,      // <OBJ>|<OBJS><COMMA><OBJ>
-    NUMS,      // <NUM>|<NUMS> <COMMA> <NUM>
+    OBJS,      // (<OBJ>|<OBJS>) <COMMA> <OBJ>
+    NUMS,      // (<NUM>|<NUMS>) <COMMA> <NUM>
     NTON,      // <NUM> <ARROW> <NUM>
     EDGE,      // <NTON> <COMMA> <OBJ>
     STACK,     // <PAREN_L> <ARROW> <COMMA> <OBJ> <PAREN_R>
                // <PAREN_L> <OBJ> <COMMA> <ARROW> <PAREN_R>
                // <PAREN_L> <COMMA> <PAREN_R>
-    EANDS,     // <EDGE>|<EANDS> <COMMA> <STACK>
-    TRAN_UNIT, // <PAREN_L> <EDGE>|<EANDS> <PAREN_R>
+    EANDS,     // (<EDGE>|<EANDS>) <COMMA> <STACK>
+    TRAN_UNIT, // <PAREN_L> (<EDGE>|<EANDS>) <PAREN_R>
                // <TRAN_UNIT> <COMMA> <TRAN_UNIT>
     BLOCK,     // <KW_ETATS> <EQUAL> <BRACKET_L> <OBJ>|<OBJS> <BRACKET_R>
                // <KW_INITIAL> <EQUAL> <NUM>

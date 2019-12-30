@@ -12,13 +12,13 @@ void analyseur_syntaxique() {
             ;
     }
     if (wp != 1) {
-        sprintf(errmsg, "syntactic error\n[REST TOEKN] ");
+        sprintf(errmsg, "erreur syntaxique\n[LEXEMES RESTANTS] ");
         for (int i = 0; i < wp; i++)
             sprintf(errmsg + strlen(errmsg), "%s ", pos[parbuf[i].type]);
         strcat(errmsg, "\n");
         error();
     } else {
-        printf("syntactic analysis finished\n");
+        printf("analyse syntaxique terminée\n");
     }
 }
 
@@ -211,11 +211,11 @@ void print_syntree() {
     char nodePOS[MAX_STRLEN] = {};
     strncpy(nodePOS, pos[tokens[addr[d]].type], MAX_STRLEN);
     if (tokens[addr[d]].type == NUM) {
-        fprintf(fp, "%s %d, ", nodePOS, tokens[addr[d]].num);
+        fprintf(fp, "%s %d,", nodePOS, tokens[addr[d]].num);
     } else if (tokens[addr[d]].type == OBJ) {
-        fprintf(fp, "%s %s, ", nodePOS, tokens[addr[d]].str);
+        fprintf(fp, "%s %s,", nodePOS, tokens[addr[d]].str);
     } else {
-        fprintf(fp, "%s, ", nodePOS);
+        fprintf(fp, "%s,", nodePOS);
     }
 
     if (tokens[addr[d]].ln == -1 && tokens[addr[d]].rn == -1) {
@@ -244,6 +244,6 @@ void print_syntree() {
             sprintf(errmsg, "file \"syntree.csv\" cannot be closed\n");
             error();
         }
-        printf("%s\nsyntactic tree available at \"syntree.csv\"\n", underline);
+        printf("%s\narbre syntaxique disponible sur \"syntree.csv\"\n", underline);
     }
 }

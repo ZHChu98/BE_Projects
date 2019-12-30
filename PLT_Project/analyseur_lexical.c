@@ -28,7 +28,7 @@ void analyseur_lexical(char *filename) {
         error();
     }
 
-    printf("lexical analysis finished\n");
+    printf("analyse lexicale terminée\n");
 
     if (fclose(fp) != 0) {
         sprintf(errmsg, "file \"%s\" cannot be closed\n", filename);
@@ -53,7 +53,7 @@ void FSM_Lex(int* state, int* rp, int* wp, char* buf, int* line) {
                 *rp += 2;
             } else if (strncmp(buf + *rp, "Automate", 8) == 0) {
                 if (KeyWords[KW_AUTOMATE] == true) {
-                    sprintf(errmsg, "lexical error: keyword Automate repitition\n");
+                    sprintf(errmsg, "erreur lexicale: mot clés Automate en double\n");
                     error();
                 }
                 tokens[(*wp)++].type = KW_AUTOMATE;
@@ -61,7 +61,7 @@ void FSM_Lex(int* state, int* rp, int* wp, char* buf, int* line) {
                 *rp += 8;
             } else if (strncmp(buf + *rp, "etats", 5) == 0) {
                 if (KeyWords[KW_ETATS] == true) {
-                    sprintf(errmsg, "lexical error: keyword etats repitition\n");
+                    sprintf(errmsg, "erreur lexicale: mot clés etats en double\n");
                     error();
                 }
                 tokens[(*wp)++].type = SEPAR;
@@ -70,7 +70,7 @@ void FSM_Lex(int* state, int* rp, int* wp, char* buf, int* line) {
                 *rp += 5;
             } else if (strncmp(buf + *rp, "initial", 7) == 0) {
                 if (KeyWords[KW_INITIAL] == true) {
-                    sprintf(errmsg, "lexical error: keyword initial repitition\n");
+                    sprintf(errmsg, "erreur lexicale: mot clés initial en double\n");
                     error();
                 }
                 tokens[(*wp)++].type = SEPAR;
@@ -79,7 +79,7 @@ void FSM_Lex(int* state, int* rp, int* wp, char* buf, int* line) {
                 *rp += 7;
             } else if (strncmp(buf + *rp, "final", 5) == 0) {
                 if (KeyWords[KW_FINAL] == true) {
-                    sprintf(errmsg, "lexical error: keyword final repitition\n");
+                    sprintf(errmsg, "erreur lexicale: mot clés final en double\n");
                     error();
                 }
                 tokens[(*wp)++].type = SEPAR;
@@ -88,7 +88,7 @@ void FSM_Lex(int* state, int* rp, int* wp, char* buf, int* line) {
                 *rp += 5;
             } else if (strncmp(buf + *rp, "transitions", 11) == 0) {
                 if (KeyWords[KW_TRANSITIONS] == true) {
-                    sprintf(errmsg, "lexical error: keyword transitions repitition\n");
+                    sprintf(errmsg, "erreur lexicale: mot clés transitions en double\n");
                     error();
                 }
                 tokens[(*wp)++].type = SEPAR;
@@ -134,13 +134,13 @@ void FSM_Lex(int* state, int* rp, int* wp, char* buf, int* line) {
                 tokens[*wp].type = OBJ;
                 *state = 5;
                 *rp += 1;
-            } else if (buf[*rp] >= 48 && buf[*rp] <= 57) {
+            } else if (buf[*rp] >= '0' && buf[*rp] <= '9') {
                 tokens[*wp].type = NUM;
                 tokens[*wp].num = buf[*rp] - '0';
                 *state = 6;
                 *rp += 1;
             } else {
-                sprintf(errmsg, "lexical error: unknown word \"");
+                sprintf(errmsg, "erreur lexicale: mot inconnu \"");
                 while (buf[*rp] != '\n' && buf[*rp] != ' ' && buf[*rp] != '\t')
                     sprintf(errmsg + strlen(errmsg), "%c", buf[(*rp)++]);
                 sprintf(errmsg + strlen(errmsg), "\" in line %d\n", *line);
@@ -210,7 +210,7 @@ void FSM_Lex(int* state, int* rp, int* wp, char* buf, int* line) {
 }
 
 void print_tokens() {
-    printf("%s\n[TOKENS]\n", underline);
+    printf("%s\n[LEXEMES]\n", underline);
     int i = 0;
     while (tokens[i].type != NONE) {
         printf("%s ", pos[tokens[i++].type]);

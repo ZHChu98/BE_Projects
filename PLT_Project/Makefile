@@ -1,4 +1,4 @@
-FLAGS = -Wall -Werror -pedantic -std=c++11 -g -fsanitize=address
+FLAGS = -Wall -Werror -pedantic -g -fsanitize=address
 
 OBJ = analyseur_lexical.o analyseur_syntaxique.o analyseur_semantique.o util.o
 
@@ -32,7 +32,7 @@ util.o: util.c util.h
 	cc -c $<
 
 clean:
-	rm -rf *.o $(EXEC)
+	rm -rf *.o $(EXEC) VM.csv syntree.csv symtable.txt
 
 clean_OBJ:
 	rm -rf *.o

@@ -36,9 +36,9 @@ int main(int argc, char* argv[]) {
         } else if (strcmp(argv[i], "-show_all") == 0) {
             tokstr = syntree = graph = vm = true;
         } else {
-            sprintf(errmsg, "command error: unknown command \"%s\"\ndo you mean:\n", argv[i]);
+            sprintf(errmsg, "erreur de commande: commande inconnue \"%s\"\nest-ce que vous voulez:\n", argv[i]);
             sprintf(errmsg + strlen(errmsg),
-                    "\"-show_tokens\", \"-show_syntree\", \"-show_graph\", \"-show_vm\" or \"show_all\"\n");
+                    "\"-show_tokens\", \"-show_syntree\", \"-show_graph\", \"-show_vm\" ou \"show_all\"\n");
             error();
         }
     }
@@ -110,20 +110,20 @@ void VM_generator() {
         rp += k;
     }
     VM_size = wp;
-    printf("VM generated\n");
+    printf("VM généré\n");
 }
 
 void VM_store() {
-    FILE *fp = fopen("symbol_table.txt", "w");
+    FILE *fp = fopen("symtable.txt", "w");
     if (fp == NULL) {
-        sprintf(errmsg, "file \"symbol_table.txt\" cannot open\n");
+        sprintf(errmsg, "file \"symtable.txt\" cannot open\n");
         error();
     }
     for (int etat = 0; etat < etat_num; etat++) {
-        fprintf(fp, "%s %d ", symtab[etat].str, symtab[etat].addr);
+        fprintf(fp, "%s %d\n", symtab[etat].str, symtab[etat].addr);
     }
     if (fclose(fp) != 0) {
-        sprintf(errmsg, "file \"symbol_table.txt\" cannot be closed\n");
+        sprintf(errmsg, "file \"symtable.txt\" cannot be closed\n");
         error();
     }
 
@@ -139,15 +139,15 @@ void VM_store() {
         sprintf(errmsg, "file \"VM.csv\" cannot be closed\n");
         error();
     }
-    printf("VM stored\n");
+    printf("VM mémorisé\n");
 }
 
 void print_VM() {
     printf("%s\n[VM INFO]\n", underline);
-    printf("symbol table: \n");
+    printf("table des symboles: \n");
     for (int etat = 0; etat < etat_num; etat++)
-        printf("name: %6s, address: %3d\n", symtab[etat].str, symtab[etat].addr);
-    printf("VM memory: ");
+        printf("nom: %6s, adresse: %3d\n", symtab[etat].str, symtab[etat].addr);
+    printf("Mémoire de VM: ");
     for (int i = 0; i < VM_size; i++)
         printf("%d ", VM[i]);
     printf("\n");

@@ -9,34 +9,34 @@ void VM_executer(bool debug);
 
 // main
 int main(int argc, char* argv[]) {
-    if (strcmp(argv[1], "VM") == 0) {
+    if (argc == 1) {
         VM_reload();
         VM_executer(false);
-    } else if (strcmp(argv[1], "-debug") == 0 && strcmp(argv[2], "VM") == 0) {
+    } else if (strcmp(argv[1], "-debug") == 0) {
         VM_reload();
         VM_executer(true);
     } else {
-        sprintf(errmsg, "command error\n");
-        sprintf(errmsg + strlen(errmsg), "do you mean:\n \"%s VM\" or \"%s -debug VM\"\n", argv[0], argv[0]);
+        sprintf(errmsg, "erreur de commande: commande inconnue\n");
+        sprintf(errmsg + strlen(errmsg), "est-ce que vous voulez:\n \"%s\" ou \"%s -debug\"\n", argv[0], argv[0]);
         error();
     }
     return 0;
 }
 
 void VM_reload() {
-    FILE *fp = fopen("symbol_table.txt", "r");
+    FILE *fp = fopen("symtable.txt", "r");
     int i;
     // reload symbol table
     if (fp == NULL) {
-        sprintf(errmsg, "file \"symbol_table.txt\" cannot open\n");
+        sprintf(errmsg, "file \"symtable.txt\" cannot open\n");
         error();
     }
     i = 0;
-    while (fscanf(fp, "%s %d ", symtab[i].str, &(symtab[i].addr)) != EOF) {
+    while (fscanf(fp, "%s %d\n", symtab[i].str, &(symtab[i].addr)) != EOF) {
         i++;
     }
     if (fclose(fp) != 0) {
-        sprintf(errmsg, "file \"symbol_table.txt\" cannot be closed\n");
+        sprintf(errmsg, "file \"symtable.txt\" cannot be closed\n");
         error();
     }
     // reload VM

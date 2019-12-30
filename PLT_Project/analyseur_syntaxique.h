@@ -5,7 +5,7 @@
 void analyseur_syntaxique();
 
 /**
- * Function: reduce or to shift, accroding to FR(1) analysis
+ * Function: reduce or to shift, accroding to FR(0) analysis
  * Output: if reduce then true, else false
  */
 bool parser(int* wp);

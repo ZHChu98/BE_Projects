@@ -18,7 +18,7 @@ void analyseur_semantique() {
     for (int i = 0; i < SEMVERF_SIZE; i++) {
         verification[i]();
     }
-    printf("semantic analysis finished %d/%d\n", SEMVERF_SIZE, SEMVERF_SIZE);
+    printf("analyse sémantique terminée %d/%d\n", SEMVERF_SIZE, SEMVERF_SIZE);
 }
 
 
@@ -49,7 +49,7 @@ void read_syntree() {
                 break;
             } else if (blockPOS == KW_TRANSITIONS) {
                 if (tokens[addr[d]].str[1] != '\0') {
-                    sprintf(errmsg, "semantic error: only accept char rather than string in transition from %d to %d\n",
+                    sprintf(errmsg, "erreur sémantique: n'acceptez que char plutôt qu'une chaîne dans la transition de %d à %d\n",
                             transitions[trans_num - 1].start, transitions[trans_num - 1].end);
                     error();
                 }
@@ -94,7 +94,7 @@ void read_syntree() {
         case STACK:
             i += 1;
             if (i >= stack_num) {
-                sprintf(errmsg, "semantic error: the number of stack in transition from %d to %d shouldn't excess %d\n", 
+                sprintf(errmsg, "erreur sémantique: le numéro de la pile dans la transition de %d à %d ne devrait pas excéder %d\n", 
                 transitions[trans_num - 1].start, transitions[trans_num - 1].end, stack_num);
                 error();
             }
@@ -120,18 +120,17 @@ void read_syntree() {
 
     d -= 1;
     if (d < 0) {
-        printf("syntax tree information extraction finished\n");
+        printf("l'extraction des informations de l'arbre syntaxique est terminée\n");
     }
 }
 
 void print_graphinfo() {
     printf("%s\n", underline);
-    printf("[GRAPH INFO]\n");
+    printf("[GRAPHE INFO]\n");
 
-    printf("number of stack: %d\n", stack_num);
+    printf("nombre des piles: %d\n", stack_num);
 
     printf("etats: ");
-
     for (int i = 0; i < etat_num; i++)
         printf("`%s` ", etats[i]);
     printf("\n");
@@ -145,7 +144,7 @@ void print_graphinfo() {
 
     printf("transitions:\n");
     for (int i = 0; i < trans_num; i++) {
-        printf("start: %2d, end: %2d, need: %c, stack operations: ",
+        printf("de: %2d, à: %2d, char: %c, opérations de pile: ",
                transitions[i].start, transitions[i].end, transitions[i].ch);
         for (int j = 0; j < stack_num; j++)
             printf("(%-4s %2c) ",
@@ -205,19 +204,19 @@ int trans_cmp(int t1, int t2) {
 
 void info_complete() {
     if (etat_num == 0) {
-        sprintf(errmsg, "semantic error: etats information missing\n");
+        sprintf(errmsg, "erreur sémantique: informations des etats manquantes\n");
         error();
     }
     if (initial == -1) {
-        sprintf(errmsg, "semantic error: initial information missing\n");
+        sprintf(errmsg, "erreur sémantique: informations initiales manquantes\n");
         error();
     }
     if (final_num == 0){
-        sprintf(errmsg, "semantic error: final information missing\n");
+        sprintf(errmsg, "erreur sémantique: informations finales manquantes\n");
         error();
     }
     if (trans_num == 0){
-        sprintf(errmsg, "semantic error: transitions information missing\n");
+        sprintf(errmsg, "erreur sémantique: informations des transitions manquantes\n");
         error();
     }
 }
@@ -225,7 +224,7 @@ void info_complete() {
 void valid_index() {
     for (int i = 0; i < final_num; i++)
         if (final[i] >= etat_num || final[i] < 0) {
-            sprintf(errmsg, "semantic error: invalid index %d at final = [", final[i]);
+            sprintf(errmsg, "erreur sémantique: index invalide %d en final = [", final[i]);
             for (int j = 0; j <= i; j++)
                 sprintf(errmsg + strlen(errmsg), "%d,", final[j]);
             strcat(errmsg, " ... ]\n");
@@ -234,12 +233,12 @@ void valid_index() {
 
     for (int i = 0; i < trans_num; i++) {
         if (transitions[i].start >= etat_num || transitions[i].start < 0) {
-            sprintf(errmsg, "semantic error: invalid index %d at (%d → %d,`%c`, ... )\n",
+            sprintf(errmsg, "erreur sémantique: index invalide %d en (%d → %d,`%c`, ... )\n",
                     transitions[i].start, transitions[i].start, transitions[i].end, transitions[i].ch);
             error();
         }
         if (transitions[i].end >= etat_num || transitions[i].end < 0) {
-            sprintf(errmsg, "semantic error: invalid index %d at (%d → %d,`%c`, ... )\n",
+            sprintf(errmsg, "erreur sémantique: index invalide %d en (%d → %d,`%c`, ... )\n",
                     transitions[i].end, transitions[i].start, transitions[i].end, transitions[i].ch);
             error();
         }
@@ -249,7 +248,7 @@ void valid_index() {
 void unique_edge() {
     for (int i = 1; i < trans_num; i++) {
         if (trans_cmp(i - 1, i) == 0) {
-            sprintf(errmsg, "semantic error: redefinition of edge ");
+            sprintf(errmsg, "erreur sémantique: redéfinition de transition ");
             sprintf(errmsg + strlen(errmsg), "(%d → %d,`%c`", 
                     transitions[i].start, transitions[i].end, transitions[i].ch);
             for (int j = 0; j < stack_num; j++) {
@@ -303,7 +302,7 @@ void existe_path() {
 
     for (int i = 0; i < final_num; i++) {
         if (nodes[final[i]] == false) {
-            sprintf(errmsg, "semantic error: no path available from %d to %d\n",
+            sprintf(errmsg, "erreur sémantique: aucun chemin disponible de %d à %d\n",
                     initial, final[i]);
             error();
         }
@@ -326,15 +325,15 @@ void stack_iobal() {
     for (int j = 0; j < stack_num; j++) {
         switch (stacks[j]) {
             case 0:
-                sprintf(errmsg, "semantic error: stack %d not used\n", j);
+                sprintf(errmsg, "erreur sémantique: pile %d non utilisé\n", j);
                 error();
                 break;
             case 1:
-                sprintf(errmsg, "semantic error: stack %d requires pop operation\n", j);
+                sprintf(errmsg, "erreur sémantique: pile %d nécessite une opération pop\n", j);
                 error();
                 break;
             case 2:
-                sprintf(errmsg, "semantic error: stack %d requires push operation\n", j);
+                sprintf(errmsg, "erreur sémantique: pile %d nécessite une opération push\n", j);
                 error();
                 break;
         }
