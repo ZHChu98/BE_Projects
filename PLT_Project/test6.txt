@@ -1,7 +1,6 @@
 Automate(1) = {
 	etats = ["Init","1","2"]
 	initial = 0
-	final = [3]
 	transitions = [(0 → 1, `a`, (→, `a`)),
                    (0 → 2, `a`, ()),
                    (1 → 2, `a`, (`a`, →))]
