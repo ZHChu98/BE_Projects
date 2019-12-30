@@ -44,20 +44,23 @@ int main(int argc, char* argv[]) {
     }
 
     analyseur_lexical(argv[argc - 1]);
-    analyseur_syntaxique();
-    analyseur_semantique();
-    VM_generator();
-    VM_store();
-
     if (tokstr == true)
         print_tokens();
+    
+    analyseur_syntaxique();
     if (syntree == true)
         print_syntree();
+    
+    analyseur_semantique();
     if (graph == true)
         print_graphinfo();
+    
+    VM_generator();
     if (vm == true)
         print_VM();
-
+    
+    VM_store();
+    
     return 0;
 }
 
