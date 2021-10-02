@@ -20,4 +20,4 @@ options: -debug
 ## **Note**
 
 There are 10 test files with each of them has a lexical/syntac/semantic error.  
-Play with Zpile.txt, Upile.txt, Dpile.txt, or you can design whatever you like.  
+You can play with Zpile.txt, Upile.txt, Dpile.txt, or you can design whatever you like.  
