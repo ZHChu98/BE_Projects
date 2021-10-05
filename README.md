@@ -2,19 +2,19 @@
 
 ## **Algorithms**
 
-Implement algorithms introduced during the course **Data Structure and Algorithm**.
+Implement algorithms introduced during the course **Data Structures and Algorithms**.
 
 ## **CNS Project**
 
-Implement *UDP server-client communication* and *Hadoop map-reduce* pipeline.
+Implement *Instant Messenger* and *Hadoop Map-Reduce* pipeline.
 
 ## **Graph Project**
 
-Implement and evaluate the *Zykov* Algorithm when handling *k-coloring* problem.
+Implement and evaluate the *Zykov* Algorithm when handling *K-Coloring* problem.
 
 ## **OS Project**
 
-Explore thread management in C, build and solve *producer-customer* problem.
+Explore thread management in C, build and solve *Producer-Customer* problem.
 
 ## **PLT Project**
 
